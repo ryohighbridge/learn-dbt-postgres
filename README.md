@@ -49,3 +49,12 @@ $ dbt debug
 # dbt実行
 $ dbt build
 ```
+
+## SQLリンター
+
+```sh
+# Lint
+$ sqlfluff lint
+# Fix
+$ sqlfluff fix
+```
