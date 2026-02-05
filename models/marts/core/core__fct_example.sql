@@ -1,4 +1,4 @@
--- サンプル事実テーブル：ステージングデータのフィルタリング
+-- サンプルファクトテーブル：ステージングデータのフィルタリング
 {{ config(materialized='view') }}
 
 with staging_data as (
