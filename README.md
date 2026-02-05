@@ -20,6 +20,18 @@ $ python -m pip install -r requirements.txt
 $ python -m pip freeze > requirements.txt
 ```
 
+```sh
+# dbコンテナ接続
+$ docker compose exec db psql -U $DB_USER -d $DB_NAME
+```
+
+```sql
+-- PostgreSQLバージョンアップ後やOSのロケール設定変更後に実行
+-- 照合順序の警告が出た場合の対応
+REINDEX DATABASE sample_db;
+ALTER DATABASE sample_db REFRESH COLLATION VERSION;
+```
+
 ```sql
 -- スキーマの確認
 \dn
@@ -28,5 +40,12 @@ SELECT current_schema();
 -- スキーマの作成
 CREATE SCHEMA sample_schema;
 -- スキーマを変更
-SET search_path = sample_schema;
+SET search_path TO sample_schema;
+```
+
+```sh
+# dbt接続確認
+$ dbt debug
+# dbt実行
+$ dbt build
 ```
