@@ -1,7 +1,7 @@
 version: 2
 
 models:
-  - name: fct_example
+  - name: core__fct_example
     description: "サンプル事実テーブル：id=1のレコードのみを含む"
     columns:
       - name: id
