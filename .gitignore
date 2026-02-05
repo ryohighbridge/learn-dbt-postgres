@@ -1,0 +1,12 @@
+.envrc
+
+# python
+.venv/
+*.pyc
+__pycache__/
+
+# dbt
+target/
+dbt_packages/
+logs/
+.user.yml
