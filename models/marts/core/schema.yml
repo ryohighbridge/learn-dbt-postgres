@@ -1,0 +1,14 @@
+version: 2
+
+models:
+  - name: core__fct_example
+    description: "サンプルファクトテーブル：id=1のレコードのみを含む"
+    columns:
+      - name: id
+        description: "レコードの一意識別子（値は常に1）"
+        data_tests:
+          - unique
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [1]
