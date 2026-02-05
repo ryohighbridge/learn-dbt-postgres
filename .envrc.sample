@@ -1,0 +1,5 @@
+# Database Configuration
+DB_USER=sample
+DB_PASSWORD=sample123
+DB_NAME=sample_db
+DB_SCHEMA=sample_schema
