@@ -32,6 +32,11 @@ models:
     # ステージングモデルはviewとして構築
     staging:
       +materialized: view
+      schema: staging
     # マートモデルはデフォルトでview（必要に応じてtableに変更）
     marts:
       +materialized: view
+      schema: marts
+seeds:
+  learn_dbt_postgres:
+    schema: raw

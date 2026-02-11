@@ -14,10 +14,9 @@
 ### 命名規則
 - モデル名：スネークケース（例：`customer_orders.sql`）
 - ステージングモデル：`stg_<source>__<table>` の形式
-- 中間モデル：`int_<domain>__<description>` の形式
-- マートモデル：`<domain>__<entity>` の形式
-  - ファクトテーブル（トランザクション、イベント）：`<domain>__fct_<entity>` (例：`core__fct_orders`)
-  - ディメンションテーブル（属性、マスタ）：`<domain>__dim_<entity>` (例：`core__dim_customers`)
+- マートモデル：`<entity>` の形式
+  - ファクトテーブル（トランザクション、イベント）：`fct_<entity>` (例：`fct_orders`)
+  - ディメンションテーブル（属性、マスタ）：`dim_<entity>` (例：`dim_customers`)
 
 ### テストとドキュメント
 - すべてのモデルに `schema.yml` でテストとドキュメントを記述
