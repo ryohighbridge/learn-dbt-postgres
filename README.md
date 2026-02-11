@@ -38,7 +38,7 @@ ALTER DATABASE sample_db REFRESH COLLATION VERSION;
 -- 現在のスキーマ
 SELECT current_schema();
 -- スキーマを変更
-SET search_path TO dev_raw;
+SET search_path TO dev_marts;
 ```
 
 ```sh
