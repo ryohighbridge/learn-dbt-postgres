@@ -2,28 +2,86 @@
 
 ## セットアップ
 
+### 1. 環境変数の設定
+
 ```sh
 # 環境変数ファイルの作成
 $ cp .envrc.sample .envrc
+# .envrcを編集して必要な環境変数を設定
+# - DB_USER, DB_PASSWORD, DB_NAME
+# - DB_SCHEMA (例: dev)
+
+# 環境変数の読み込み
+# direnv を使う場合（推奨）
+$ direnv allow
+# direnv を使わない場合
+$ source .envrc
+```
+
+### 2. Dockerコンテナの起動
+
+```sh
+# PostgreSQLコンテナの起動
+$ docker compose up -d
+# コンテナの状態確認
+$ docker compose ps
+```
+
+### 3. Python環境のセットアップ
+
+```sh
 # 仮想環境の作成
 $ python -m venv .venv
 # 仮想環境の有効化
 $ source .venv/bin/activate
-# 仮想環境の無効化
-$ deactivate
 
 # パッケージのインストール
 $ python -m pip install --upgrade pip
 $ python -m pip install -r requirements.txt
 
-# パッケージの管理
-$ python -m pip freeze > requirements.txt
+# 仮想環境の無効化（必要に応じて）
+$ deactivate
 ```
 
+### 4. dbt接続確認
+
 ```sh
-# dbコンテナ接続
+# dbtとPostgreSQLの接続確認
+$ dbt debug
+```
+
+### 5. dbt実行とスキーマ作成
+
+```sh
+# 段階的に実行（スキーマは自動的に作成されます）
+$ dbt seed   # seedsデータの投入
+$ dbt run    # モデルの実行（スキーマが自動作成される）
+$ dbt test   # テストの実行
+```
+
+**注意**: dbt実行時に、`profiles.yml`と`dbt_project.yml`の設定に基づいて、`dev_raw`、`dev_staging`、`dev_marts`などのスキーマが自動的に作成されます。手動でスキーマを作成する必要はありません。
+
+## データベース管理
+
+### PostgreSQLへの直接接続
+
+```sh
+# dbコンテナに接続
 $ docker compose exec db psql -U $DB_USER -d $DB_NAME
 ```
+
+### スキーマの確認
+
+```sql
+-- スキーマの一覧
+\dn
+-- 現在のスキーマ
+SELECT current_schema();
+-- スキーマを変更
+SET search_path TO dev_marts;
+```
+
+### メンテナンスコマンド
 
 ```sql
 -- PostgreSQLバージョンアップ後やOSのロケール設定変更後に実行
@@ -32,20 +90,11 @@ REINDEX DATABASE sample_db;
 ALTER DATABASE sample_db REFRESH COLLATION VERSION;
 ```
 
-```sql
--- スキーマの確認
-\dn
--- 現在のスキーマ
-SELECT current_schema();
--- スキーマを変更
-SET search_path TO dev_marts;
-```
+## パッケージ管理
 
 ```sh
-# dbt接続確認
-$ dbt debug
-# dbt実行
-$ dbt build
+# パッケージ一覧の更新
+$ python -m pip freeze > requirements.txt
 ```
 
 ## SQLリンター
