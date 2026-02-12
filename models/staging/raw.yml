@@ -1,7 +1,7 @@
 version: 2
 
 sources:
-  - name: staging
+  - name: raw
     schema: "{{ target.schema }}_raw"
     tables:
       - name: prefectures
