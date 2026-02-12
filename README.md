@@ -8,8 +8,14 @@
 # 環境変数ファイルの作成
 $ cp .envrc.sample .envrc
 # .envrcを編集して必要な環境変数を設定
-# - DB_USER, DB_PASSWORD, DB_NAME, DB_HOST, DB_PORT
+# - DB_USER, DB_PASSWORD, DB_NAME
 # - DB_SCHEMA (例: dev)
+
+# 環境変数の読み込み
+# direnv を使う場合（推奨）
+$ direnv allow
+# direnv を使わない場合
+$ source .envrc
 ```
 
 ### 2. Dockerコンテナの起動
@@ -28,12 +34,13 @@ $ docker compose ps
 $ python -m venv .venv
 # 仮想環境の有効化
 $ source .venv/bin/activate
-# 仮想環境の無効化（必要に応じて）
-$ deactivate
 
 # パッケージのインストール
 $ python -m pip install --upgrade pip
 $ python -m pip install -r requirements.txt
+
+# 仮想環境の無効化（必要に応じて）
+$ deactivate
 ```
 
 ### 4. dbt接続確認
