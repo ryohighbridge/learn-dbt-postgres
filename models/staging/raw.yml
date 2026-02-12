@@ -1,0 +1,13 @@
+version: 2
+
+sources:
+  - name: raw
+    schema: "{{ target.schema }}_raw"
+    tables:
+      - name: prefectures
+        description: "JIS X0401に基づく都道府県マスタデータ"
+        columns:
+          - name: code
+            description: "都道府県コード"
+          - name: name
+            description: "都道府県名"

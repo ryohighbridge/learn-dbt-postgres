@@ -1,0 +1,15 @@
+version: 2
+
+seeds:
+  - name: prefectures
+    description: "JIS X0401に基づく都道府県マスタデータ"
+    columns:
+      - name: code
+        description: "都道府県コード"
+        data_tests:
+          - unique
+          - not_null
+      - name: name
+        description: "都道府県名"
+        data_tests:
+          - not_null
