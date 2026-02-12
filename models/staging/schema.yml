@@ -9,3 +9,16 @@ models:
         data_tests:
           - unique
           - not_null
+
+  - name: stg_raw__prefectures
+    description: "都道府県マスタのステージングモデル"
+    columns:
+      - name: prefecture_code
+        description: "都道府県コード（JIS X0401準拠）"
+        data_tests:
+          - unique
+          - not_null
+      - name: prefecture_name
+        description: "都道府県名"
+        data_tests:
+          - not_null
