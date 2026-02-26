@@ -3,6 +3,11 @@ version: 2
 seeds:
   - name: prefectures
     description: "JIS X0401に基づく都道府県マスタデータ"
+    config:
+      schema: raw
+      column_types:
+        code: varchar(2)
+        name: varchar(10)
     columns:
       - name: code
         description: "都道府県コード"
