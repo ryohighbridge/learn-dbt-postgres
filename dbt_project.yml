@@ -37,10 +37,3 @@ models:
     marts:
       +materialized: view
       schema: marts
-seeds:
-  learn_dbt_postgres:
-    schema: raw
-    prefectures:
-      +column_types:
-        code: varchar(2)
-        name: varchar(10)
