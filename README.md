@@ -61,6 +61,15 @@ $ dbt test   # テストの実行
 
 **注意**: dbt実行時に、`profiles.yml`と`dbt_project.yml`の設定に基づいて、`dev_raw`、`dev_staging`、`dev_marts`などのスキーマが自動的に作成されます。手動でスキーマを作成する必要はありません。
 
+#### 単体テストの実行
+
+```sh
+# 単体テスト用に空の依存モデル作成
+$ dbt run --empty
+# 単体テストのみ実行
+$ dbt test --select test_type:unit
+```
+
 ## データベース管理
 
 ### PostgreSQLへの直接接続

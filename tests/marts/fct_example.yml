@@ -1,0 +1,14 @@
+unit_tests:
+  - name: test_fct_example
+    description: "idが1の行のみ、残ることを確認する。"
+    model: fct_example
+    given:
+      - input: ref('stg_example__source_data')
+        format: dict
+        rows:
+          - {id: 1}
+          - {id: null}
+          - {id: 2}
+    expect:
+      rows:
+        - {id: 1}
