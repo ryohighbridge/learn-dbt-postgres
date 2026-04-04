@@ -1,13 +1,9 @@
-name: learn-dbt-postgres unit test
-
-permissions:
-  contents: read
+name: Unit test
 
 on:
   push:
-    branches:
-      - main
   pull_request:
+    branches: [main]
 
 jobs:
   unit-test:
@@ -28,18 +24,13 @@ jobs:
           --health-timeout 5s
           --health-retries 5
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v6.0.2
-
-      - name: Setup Python
-        uses: actions/setup-python@v6.2.0
+      - uses: actions/checkout@v6.0.2
+      - uses: actions/setup-python@v6.2.0
         with:
-          python-version: "3.12"
-          cache: "pip"
-
+          python-version: '3.12'
+          cache: 'pip'
       - name: Install dependencies
         run: python -m pip install -r requirements.txt
-
       - name: Create profiles.yml
         run: |
           echo "learn_dbt_postgres:
@@ -56,12 +47,9 @@ jobs:
                 threads: 4" > ./profiles.yml
       - name: Install dbt dependencies
         run: dbt deps
-
       - name: Seed data
         run: dbt seed
-
       - name: Create empty dependent models for unit testing
         run: dbt run --empty
-
       - name: Run unit tests
         run: dbt test --select test_type:unit
