@@ -35,25 +35,11 @@ jobs:
           cache: 'pip'
       - name: Install dependencies
         run: python -m pip install -r requirements.txt
-      - name: Create profiles.yml
-        run: |
-          echo "learn_dbt_postgres:
-            target: test
-            outputs:
-              test:
-                type: postgres
-                host: localhost
-                port: 5432
-                user: postgres
-                pass: postgres
-                dbname: postgres
-                schema: test
-                threads: 4" > ./profiles.yml
       - name: Install dbt dependencies
         run: dbt deps
       - name: Seed data
-        run: dbt seed
+        run: dbt seed --target ci
       - name: Create empty dependent models for unit testing
-        run: dbt run --empty
+        run: dbt run --empty --target ci
       - name: Run unit tests
-        run: dbt test --select test_type:unit
+        run: dbt test --select test_type:unit --target ci
