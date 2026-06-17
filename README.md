@@ -6,57 +6,57 @@
 
 ```sh
 # 環境変数ファイルの作成
-$ cp .envrc.sample .envrc
+cp .envrc.sample .envrc
 # .envrcを編集して必要な環境変数を設定
 # - DB_USER, DB_PASSWORD, DB_NAME
 # - DB_SCHEMA (例: dev)
 
 # 環境変数の読み込み
 # direnv を使う場合（推奨）
-$ direnv allow
+direnv allow
 # direnv を使わない場合
-$ source .envrc
+source .envrc
 ```
 
 ### 2. Dockerコンテナの起動
 
 ```sh
 # PostgreSQLコンテナの起動
-$ docker compose up -d
+docker compose up -d
 # コンテナの状態確認
-$ docker compose ps
+docker compose ps
 ```
 
 ### 3. Python環境のセットアップ
 
 ```sh
 # 仮想環境の作成
-$ python -m venv .venv
+python -m venv .venv
 # 仮想環境の有効化
-$ source .venv/bin/activate
+source .venv/bin/activate
 
 # パッケージのインストール
-$ python -m pip install --upgrade pip
-$ python -m pip install -r requirements.txt
+python -m pip install --upgrade pip
+python -m pip install -r requirements.txt
 
 # 仮想環境の無効化（必要に応じて）
-$ deactivate
+deactivate
 ```
 
 ### 4. dbt接続確認
 
 ```sh
 # dbtとPostgreSQLの接続確認
-$ dbt debug
+dbt debug
 ```
 
 ### 5. dbt実行とスキーマ作成
 
 ```sh
 # 段階的に実行（スキーマは自動的に作成されます）
-$ dbt seed   # seedsデータの投入
-$ dbt run    # モデルの実行（スキーマが自動作成される）
-$ dbt test   # テストの実行
+dbt seed   # seedsデータの投入
+dbt run    # モデルの実行（スキーマが自動作成される）
+dbt test   # テストの実行
 ```
 
 **注意**: dbt実行時に、`profiles.yml`と`dbt_project.yml`の設定に基づいて、`dev_raw`、`dev_staging`、`dev_marts`などのスキーマが自動的に作成されます。手動でスキーマを作成する必要はありません。
@@ -65,9 +65,9 @@ $ dbt test   # テストの実行
 
 ```sh
 # 単体テスト用に空の依存モデル作成
-$ dbt run --empty
+dbt run --empty
 # 単体テストのみ実行
-$ dbt test --select test_type:unit
+dbt test --select test_type:unit
 ```
 
 ## データベース管理
@@ -76,7 +76,7 @@ $ dbt test --select test_type:unit
 
 ```sh
 # dbコンテナに接続
-$ docker compose exec db psql -U $DB_USER -d $DB_NAME
+docker compose exec db psql -U $DB_USER -d $DB_NAME
 ```
 
 ### スキーマの確認
@@ -103,16 +103,16 @@ ALTER DATABASE sample_db REFRESH COLLATION VERSION;
 
 ```sh
 # パッケージ一覧の更新
-$ python -m pip freeze > requirements.txt
+python -m pip freeze > requirements.txt
 ```
 
 ## SQLリンター
 
 ```sh
 # Lint
-$ sqlfluff lint
+sqlfluff lint
 # Fix
-$ sqlfluff fix
+sqlfluff fix
 ```
 
 ## DBのスキーマ構成
