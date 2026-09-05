@@ -108,11 +108,19 @@ python -m pip freeze > requirements.txt
 
 ## SQLリンター
 
+SQLFluffを使用してdbtモデルのSQL構文をLintしています。SQLFluffはdbtテンプレータを使用してdbtプロジェクトを完全にコンパイルしてからLintを実行するため、**実行にはデータベース接続が必須です**。
+
+セットアップ時に`source .envrc`または`direnv allow`で環境変数（`DB_USER`、`DB_PASSWORD`、`DB_NAME`、`DB_SCHEMA`）を設定済みの場合は、PostgreSQLコンテナが起動していることを確認したうえで実行してください。
+
 ```sh
-# Lint
-sqlfluff lint
-# Fix
-sqlfluff fix
+# すべてのモデルをLint
+sqlfluff lint models/
+
+# 特定のディレクトリをLint
+sqlfluff lint models/marts/
+
+# エラーを自動修正
+sqlfluff fix models/
 ```
 
 ## DBのスキーマ構成

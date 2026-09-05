@@ -1,6 +1,14 @@
 [sqlfluff]
+templater = dbt
+encoding = utf-8
 dialect = postgres
 max_line_length = 160
+
+[sqlfluff:templater:dbt]
+project_dir = .
+profiles_dir = .
+profile = learn_dbt_postgres
+target = dev
 
 [sqlfluff:indentation]
 indent_unit = space
