@@ -13,6 +13,20 @@ jobs:
     lint:
         runs-on: ubuntu-latest
         timeout-minutes: 10
+        services:
+          postgres:
+            image: postgres:18-bookworm
+            env:
+              POSTGRES_USER: postgres
+              POSTGRES_PASSWORD: postgres
+              POSTGRES_DB: postgres
+            ports:
+              - 5432:5432
+            options: >-
+              --health-cmd pg_isready
+              --health-interval 10s
+              --health-timeout 5s
+              --health-retries 5
         steps:
             - uses: actions/checkout@v6.0.2
             - uses: actions/setup-python@v6.2.0
@@ -21,5 +35,7 @@ jobs:
                 cache: 'pip'
             - name: Install dependencies
               run: python -m pip install -r requirements.txt
+            - name: Configure SQLFluff for CI
+              run: sed -i 's/target = dev/target = ci/' .sqlfluff
             - name: Lint
-              run: sqlfluff lint
+              run: sqlfluff lint models/
